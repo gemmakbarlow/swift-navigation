@@ -1,7 +1,7 @@
-PLATFORM_IOS = iOS Simulator,id=$(call udid_for,iOS,iPhone \d\+ Pro [^M])
+PLATFORM_IOS = iOS Simulator,name=$(call name_for,iOS,iPhone \d\+ Pro [^M])
 PLATFORM_MACOS = macOS
-PLATFORM_TVOS = tvOS Simulator,id=$(call udid_for,tvOS,TV)
-PLATFORM_WATCHOS = watchOS Simulator,id=$(call udid_for,watchOS,Watch)
+PLATFORM_TVOS = tvOS Simulator,name=$(call name_for,tvOS,TV)
+PLATFORM_WATCHOS = watchOS Simulator,name=$(call name_for,watchOS,Watch)
 TEST_RUNNER_CI = $(CI)
 
 OTHER_SWIFT_FLAGS="-DRESILIENT_LIBRARIES"
@@ -12,37 +12,45 @@ test: test-ios test-macos test-tvos test-watchos test-examples
 
 test-ios:
 	xcodebuild test \
+		-skipMacroValidation \
 		-workspace SwiftNavigation.xcworkspace \
 		-scheme SwiftNavigation \
 		-destination platform="$(PLATFORM_IOS)"
 	xcodebuild build \
+		-skipMacroValidation \
 		-workspace SwiftNavigation.xcworkspace \
 		-scheme DynamicFramework \
 		-destination platform="$(PLATFORM_IOS)"
 test-macos:
 	xcodebuild test \
+		-skipMacroValidation \
 		-workspace SwiftNavigation.xcworkspace \
 		-scheme SwiftNavigation \
 		-destination platform="$(PLATFORM_MACOS)"
 	xcodebuild build \
+		-skipMacroValidation \
 		-workspace SwiftNavigation.xcworkspace \
 		-scheme DynamicFramework \
 		-destination platform="$(PLATFORM_MACOS)"
 test-tvos:
 	xcodebuild test \
+		-skipMacroValidation \
 		-workspace SwiftNavigation.xcworkspace \
 		-scheme SwiftNavigation \
 		-destination platform="$(PLATFORM_TVOS)"
 	xcodebuild build \
+		-skipMacroValidation \
 		-workspace SwiftNavigation.xcworkspace \
 		-scheme DynamicFramework \
 		-destination platform="$(PLATFORM_TVOS)"
 test-watchos:
 	xcodebuild test \
+		-skipMacroValidation \
 		-workspace SwiftNavigation.xcworkspace \
 		-scheme SwiftNavigation \
 		-destination platform="$(PLATFORM_WATCHOS)"
 	xcodebuild build \
+		-skipMacroValidation \
 		-workspace SwiftNavigation.xcworkspace \
 		-scheme DynamicFramework \
 		-destination platform="$(PLATFORM_WATCHOS)"
@@ -110,6 +118,6 @@ format:
 
 .PHONY: format test-all test-docs
 
-define udid_for
-$(shell xcrun simctl list devices available '$(1)' | grep '$(2)' | sort -r | head -1 | awk -F '[()]' '{ print $$(NF-3) }')
+define name_for
+$(shell xcrun simctl list devices available '$(1)' | grep '$(2)' | sort -r | head -1 | awk -F '[()]' '{ print $$1 }' | sed 's/^ *//g' | sed 's/ *$$//g')
 endef
