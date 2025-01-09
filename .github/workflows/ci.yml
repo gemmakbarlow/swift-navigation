@@ -47,8 +47,10 @@ jobs:
 
           - xcode: '15.4'
             variation: examples
+            os_version: 17.5
           - xcode: '16.1'
             variation: examples
+            os_version: 18.1
 
     steps:
       - uses: actions/checkout@v4
