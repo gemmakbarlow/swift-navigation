@@ -57,6 +57,7 @@ test-watchos:
 
 test-examples:
 	xcodebuild test \
+		-skipMacroValidation \
 		-workspace SwiftNavigation.xcworkspace \
 		-scheme CaseStudies \
 		-destination platform="$(PLATFORM_IOS)"
