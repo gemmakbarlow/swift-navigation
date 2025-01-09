@@ -15,56 +15,56 @@ test-ios:
 		-skipMacroValidation \
 		-workspace SwiftNavigation.xcworkspace \
 		-scheme SwiftNavigation \
-		-destination "platform=$(call platform_ios)"
+		-destination "$(call destination_ios)"
 	xcodebuild build \
 		-skipMacroValidation \
 		-workspace SwiftNavigation.xcworkspace \
 		-scheme DynamicFramework \
-		-destination "platform=$(call platform_ios)"
+		-destination "$(call destination_ios)"
 test-macos:
 	xcodebuild test \
 		-skipMacroValidation \
 		-workspace SwiftNavigation.xcworkspace \
 		-scheme SwiftNavigation \
-		-destination "platform=$(call platform_macos)"
+		-destination "$(call destination_macos)"
 	xcodebuild build \
 		-skipMacroValidation \
 		-workspace SwiftNavigation.xcworkspace \
 		-scheme DynamicFramework \
-		-destination "platform=$(call platform_macos)"
+		-destination "$(call destination_macos)"
 test-tvos:
 	xcodebuild test \
 		-skipMacroValidation \
 		-workspace SwiftNavigation.xcworkspace \
 		-scheme SwiftNavigation \
-		-destination "platform=$(call platform_tvos)"
+		-destination "$(call destination_tvos)"
 	xcodebuild build \
 		-skipMacroValidation \
 		-workspace SwiftNavigation.xcworkspace \
 		-scheme DynamicFramework \
-		-destination "platform=$(call platform_tvos)"
+		-destination "$(call destination_tvos)"
 test-watchos:
 	xcodebuild test \
 		-skipMacroValidation \
 		-workspace SwiftNavigation.xcworkspace \
 		-scheme SwiftNavigation \
-		-destination "platform=$(call platform_watchos)"
+		-destination "$(call destination_watchos)"
 	xcodebuild build \
 		-skipMacroValidation \
 		-workspace SwiftNavigation.xcworkspace \
 		-scheme DynamicFramework \
-		-destination "platform=$(call platform_watchos)"
+		-destination "$(call destination_watchos)"
 
 test-examples:
 	xcodebuild test \
 		-skipMacroValidation \
 		-workspace SwiftNavigation.xcworkspace \
 		-scheme CaseStudies \
-		-destination "platform=$(call platform_ios)"
+		-destination "$(call destination_ios)"
 
 DOC_WARNINGS := $(shell xcodebuild clean docbuild \
 	-scheme SwiftUINavigation \
-		-destination "platform=$(call platform_macos)" \
+		-destination "$(call destination_macos)" \
 	-quiet \
 	2>&1 \
 	| grep "couldn't be resolved to known documentation" \
@@ -97,7 +97,7 @@ build-for-library-evolution-ios:
 	  -skipMacroValidation \
 		-workspace SwiftNavigation.xcworkspace \
 		-scheme SwiftUINavigation \
-		-destination "platform=$(call platform_ios)" \
+		-destination "$(call destination_ios)" \
 		BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
 		OTHER_SWIFT_FLAGS=$(OTHER_SWIFT_FLAGS)
 
@@ -105,7 +105,7 @@ build-for-library-evolution-ios:
 	  -skipMacroValidation \
 		-workspace SwiftNavigation.xcworkspace \
 		-scheme UIKitNavigation \
-		-destination "platform=$(call platform_ios)" \
+		-destination "$(call destination_ios)" \
 		BUILD_LIBRARY_FOR_DISTRIBUTION=YES \
 		OTHER_SWIFT_FLAGS=$(OTHER_SWIFT_FLAGS)
 
@@ -123,18 +123,18 @@ define name_for
 $(shell xcrun simctl list devices available '$(1)' | grep '$(2)' | sort -r | head -1 | awk -F '[()]' '{ print $$1 }' | sed 's/^ *//g' | sed 's/ *$$//g')
 endef
 
-define platform_ios
-iOS Simulator,name=$(call name_for,iOS $(IOS_VERSION),iPhone \d\+ Pro [^M])
+define destination_ios
+platform=iOS Simulator,name=$(call name_for,iOS,iPhone \d\+ Pro [^M]),OS=$(IOS_VERSION)
 endef
 
-define platform_watchos
-watchOS Simulator,name=$(call name_for,watchOS $(WATCHOS_VERSION),Watch)
+define destination_watchos
+platform=watchOS Simulator,name=$(call name_for,watchOS,Watch),OS=$(WATCHOS_VERSION)
 endef
 
-define platform_tvos
-tvOS Simulator,name=$(call name_for,tvOS $(TVOS_VERSION),TV)
+define destination_tvos
+platform=tvOS Simulator,name=$(call name_for,tvOS,TV),OS=$(TVOS_VERSION)
 endef
 
-define platform_macos
-macOS
+define destination_macos
+platform=macOS
 endef
