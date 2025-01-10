@@ -70,9 +70,9 @@ test-docs:
 		|| (echo "xcodebuild docbuild failed:\n\n$(DOC_WARNINGS)" | tr '\1' '\n' \
 		&& exit 1)
 
-build-for-library-evolution: build-for-library-evolution-ios build-for-library-evolution-macos
+library-evolution: build-for-library-evolution-ios build-for-library-evolution-macos
 
-build-for-library-evolution-macos:
+library-evolution-macos:
 	swift build \
 		-c release \
 		--target SwiftUINavigation \
@@ -87,7 +87,7 @@ build-for-library-evolution-macos:
 		-Xswiftc -enable-library-evolution \
 		-Xswiftc $(OTHER_SWIFT_FLAGS)
 
-build-for-library-evolution-ios:
+library-evolution-ios:
 	xcodebuild build \
 	  -skipMacroValidation \
 		-workspace SwiftNavigation.xcworkspace \
