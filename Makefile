@@ -33,11 +33,13 @@ test-tvos:
 		-workspace SwiftNavigation.xcworkspace \
 		-scheme SwiftNavigation \
 		-destination $(call destination_tvos)
+		-destination-timeout 120
 	xcodebuild build \
 		-skipMacroValidation \
 		-workspace SwiftNavigation.xcworkspace \
 		-scheme DynamicFramework \
 		-destination $(call destination_tvos)
+		-destination-timeout 120
 test-watchos:
 	xcodebuild test \
 		-skipMacroValidation \
