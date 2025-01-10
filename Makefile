@@ -129,7 +129,7 @@ define destination_watchos
 endef
 
 define destination_tvos
-"platform=tvOS Simulator,name=$(call name_for,tvOS $(TVOS_VERSION),TV),OS=$(TVOS_VERSION)"
+"platform=tvOS Simulator,name=Apple TV 4K (3rd Generation),OS=$(TVOS_VERSION)"
 endef
 
 define destination_macos
