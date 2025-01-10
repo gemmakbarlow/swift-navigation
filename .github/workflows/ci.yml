@@ -101,7 +101,7 @@ jobs:
             echo "IOS_VERSION=${{ matrix.combination.os_version }}" >> $GITHUB_ENV
           fi
       - name: Run Library Evolution builds
-        run: make library-evolution-${{ matrix.combination.os_version }}
+        run: make library-evolution-${{ matrix.combination.variation }}
 
   wasm:
     name: SwiftWasm
