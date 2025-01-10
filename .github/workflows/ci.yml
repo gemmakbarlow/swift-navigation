@@ -22,33 +22,33 @@ jobs:
           - xcode: '15.4'
             variation: ios
             os_version: 17.5
-          - xcode: '16.1'
+          - xcode: '16.2'
             variation: ios
             os_version: 18.1
 
           - xcode: '15.4'
             variation: tvos
             os_version: 17.5
-          - xcode: '16.1'
+          - xcode: '16.2'
             variation: tvos
             os_version: 18.1
 
           - xcode: '15.4'
             variation: watchos
             os_version: 10.5
-          - xcode: '16.1'
+          - xcode: '16.2'
             variation: watchos
             os_version: 11.1
 
           - xcode: '15.4'
             variation: macos
-          - xcode: '16.1'
+          - xcode: '16.2'
             variation: macos
 
           - xcode: '15.4'
             variation: examples
             os_version: 17.5
-          - xcode: '16.1'
+          - xcode: '16.2'
             variation: examples
             os_version: 18.1
 

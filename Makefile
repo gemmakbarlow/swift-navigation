@@ -1,8 +1,3 @@
-# Default versions
-IOS_VERSION ?= 17.5
-TVOS_VERSION ?= 17.5
-WATCHOS_VERSION ?= 10.5
-
 OTHER_SWIFT_FLAGS="-DRESILIENT_LIBRARIES"
 TEST_RUNNER_CI = $(CI)
 
@@ -124,15 +119,15 @@ $(shell xcrun simctl list devices available '$(1)' | grep '$(2)' | sort -r | hea
 endef
 
 define destination_ios
-platform=iOS Simulator,name=$(call name_for,iOS,iPhone 15 Pro),OS=$(IOS_VERSION)
+platform=iOS Simulator,name=$(call name_for,iOS $(IOS_VERSION),iPhone 15 Pro),OS=$(IOS_VERSION)
 endef
 
 define destination_watchos
-platform=watchOS Simulator,name=$(call name_for,watchOS,Watch),OS=$(WATCHOS_VERSION)
+platform=watchOS Simulator,name=$(call name_for,watchOS $(WATCHOS_VERSION),Watch),OS=$(WATCHOS_VERSION)
 endef
 
 define destination_tvos
-platform=tvOS Simulator,name=$(call name_for,tvOS,TV),OS=$(TVOS_VERSION)
+platform=tvOS Simulator,name=$(call name_for,tvOS $(TVOS_VERSION),TV),OS=$(TVOS_VERSION)
 endef
 
 define destination_macos
