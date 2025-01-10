@@ -119,7 +119,7 @@ $(shell xcrun simctl list devices available '$(1)' | grep '$(2)' | sort -r | hea
 endef
 
 define destination_ios
-"platform=iOS Simulator,name=$(call name_for,iOS $(IOS_VERSION),iPhone),OS=$(IOS_VERSION)"
+"platform=iOS Simulator,name=$(call name_for,iOS $(IOS_VERSION),iPhone 15 Pro),OS=$(IOS_VERSION)"
 endef
 
 define destination_watchos
