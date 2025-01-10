@@ -66,6 +66,8 @@ jobs:
             echo "TVOS_VERSION=${{ matrix.combination.os_version }}" >> $GITHUB_ENV
           elif [[ "${{ matrix.combination.variation }}" == "watchos" ]]; then
             echo "WATCHOS_VERSION=${{ matrix.combination.os_version }}" >> $GITHUB_ENV
+          elif [[ "${{ matrix.combination.variation }}" == "examples" ]]; then
+            echo "IOS_VERSION=${{ matrix.combination.os_version }}" >> $GITHUB_ENV
           fi
       - name: Run Library Evolution builds
         run: make build-for-library-evolution
