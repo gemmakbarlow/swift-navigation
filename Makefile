@@ -116,16 +116,12 @@ format:
 
 .PHONY: format test-all test-docs
 
-define name_for
-$(shell xcrun simctl list devices available '$(1)' | grep '$(2)' | sort -r | head -1 | awk -F '[()]' '{ print $$1 }' | sed 's/^ *//g' | sed 's/ *$$//g')
-endef
-
 define destination_ios
-"platform=iOS Simulator,name=$(call name_for,iOS $(IOS_VERSION),iPhone 15 Pro),OS=$(IOS_VERSION)"
+"platform=iOS Simulator,name=iPhone 15 Pro Max,OS=$(IOS_VERSION)"
 endef
 
 define destination_watchos
-"platform=watchOS Simulator,name=$(call name_for,watchOS $(WATCHOS_VERSION),Watch),OS=$(WATCHOS_VERSION)"
+"platform=watchOS Simulator,name=Apple Watch Series 6 (44mm),OS=$(WATCHOS_VERSION)"
 endef
 
 define destination_tvos
